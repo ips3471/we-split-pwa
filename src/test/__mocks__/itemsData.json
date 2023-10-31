@@ -1,0 +1,31 @@
+[
+	{
+		"id": "1",
+		"items": [
+			{
+				"amount": 1000,
+				"by": "1",
+				"category": "accomodation",
+				"date": {
+					"day": "2023-10-31",
+					"time": "18:54"
+				},
+				"for": ["1", "2"],
+				"name": "ㄴㄴㄴ",
+				"id": "1"
+			},
+			{
+				"amount": 10000,
+				"by": "2",
+				"category": "accomodation",
+				"date": {
+					"day": "2023-10-31",
+					"time": "18:54"
+				},
+				"for": ["2", "3"],
+				"name": "ㄴㄴㄴ",
+				"id": "2"
+			}
+		]
+	}
+]
