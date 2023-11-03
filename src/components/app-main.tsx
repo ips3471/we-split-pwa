@@ -28,9 +28,21 @@ const pageItems: PageItem[] = [
 ];
 
 function Main({}: Props) {
+	const [location, setLocation] = useLocation();
+
+	const navigate = () => {
+		setLocation('/add');
+	};
+
 	return (
 		<>
 			<PagesContainer pageItems={pageItems} />
+			<button
+				onClick={navigate}
+				className='w-16 h-16 shadow-lg bg-orange-300 rounded-full bg-brand fixed p-3 right-5 bottom-5'
+			>
+				<AddIcon />
+			</button>
 		</>
 	);
 }
