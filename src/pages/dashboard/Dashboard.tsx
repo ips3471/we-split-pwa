@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Sidebar from '../../components/sidebar';
 import Header from '../../components/app-header';
+import Main from '../../components/app-main';
 
 type Props = {};
 
@@ -12,19 +13,18 @@ function Dashboard({}: Props) {
 	return (
 		<>
 			<Sidebar isOpen={isSidebarOpen} />
-			<main
+			<div
 				className={`bg-blue-100 h-screen transition-all duration-500 flex flex-col ${
 					isSidebarOpen ? 'brightness-90' : ''
 				}`}
 				onClick={() => {
-					if (!isSidebarOpen) return;
-					toggleSidebar();
+					isSidebarOpen && toggleSidebar();
 				}}
 			>
 				<Header onOpen={toggleSidebar} />
-				<div>pages</div>
+				<Main />
 				<div>add-btn</div>
-			</main>
+			</div>
 		</>
 	);
 }
