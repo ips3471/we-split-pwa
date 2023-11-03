@@ -1,13 +1,18 @@
+import { ReactNode } from 'react';
 import './App.css';
 
-function App() {
-	return (
-		<>
-			<div>
-				<h1 className='text-orange-500'>hello world!</h1>
-			</div>
-		</>
-	);
+type Props = {
+	pageId: string | null;
+	pageComponentWithProvided: ReactNode;
+	pageComponentWithNull: ReactNode;
+};
+
+function App({
+	pageId,
+	pageComponentWithNull,
+	pageComponentWithProvided,
+}: Props) {
+	return <>{pageId ? pageComponentWithProvided : pageComponentWithNull}</>;
 }
 
 export default App;
