@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { ReactNode, useRef, useState } from 'react';
 import { PageItem } from './app-main';
 
 type Props = {
@@ -20,7 +20,7 @@ function PagesContainer({ pageItems }: Props) {
 
 	const handleMovePage = (pageId: string) => {
 		const ref = document.querySelector('#' + pageId);
-		ref?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		ref?.scrollIntoView({ behavior: 'smooth' });
 	};
 
 	return (
@@ -58,10 +58,26 @@ function PagesContainer({ pageItems }: Props) {
 				onScroll={handleScroll}
 				className='border-4 relative border-blue-500 flex flex-1 overflow-x-scroll snap-mandatory snap-x'
 			>
-				{pageItems.map(item => item.content)}
+				{pageItems.map(item => (
+					<PageLayout pageId={item.id} key={item.id} pageItem={item.content} />
+				))}
 			</div>
 		</>
 	);
 }
 
 export default PagesContainer;
+
+function PageLayout({
+	pageItem,
+	pageId,
+}: {
+	pageItem: ReactNode;
+	pageId: string;
+}) {
+	return (
+		<div id={pageId} className='min-w-full snap-start '>
+			{pageItem}
+		</div>
+	);
+}

@@ -14,7 +14,7 @@ function Dashboard({}: Props) {
 		<>
 			<Sidebar isOpen={isSidebarOpen} />
 			<div
-				className={`bg-blue-100 h-screen transition-all duration-500 flex flex-col ${
+				className={`bg-blue-100 transition-all border-4 border-green-500 h-full duration-500 flex flex-col ${
 					isSidebarOpen ? 'brightness-90' : ''
 				}`}
 				onClick={() => {
@@ -23,7 +23,6 @@ function Dashboard({}: Props) {
 			>
 				<Header onOpen={toggleSidebar} />
 				<Main />
-				<div>add-btn</div>
 			</div>
 		</>
 	);
