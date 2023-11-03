@@ -8,6 +8,7 @@ type Props = {
 function PagesContainer({ pageItems }: Props) {
 	const [position, setPosition] = useState(0);
 	const indicatorContainerRef = useRef<HTMLDivElement>(null);
+	const pageScrollerRef = useRef<HTMLDivElement>(null);
 
 	const handleScroll = (e: React.UIEvent<HTMLElement>) => {
 		const { clientWidth, scrollLeft, scrollWidth } = e.currentTarget;
@@ -20,42 +21,37 @@ function PagesContainer({ pageItems }: Props) {
 
 	const handleMovePage = (pageId: string) => {
 		const ref = document.querySelector('#' + pageId);
-		ref?.scrollIntoView({ behavior: 'smooth' });
+
+		pageScrollerRef.current?.scrollTo({
+			left: ref?.getBoundingClientRect().left,
+			behavior: 'smooth',
+		});
 	};
 
 	return (
 		<>
-			<div ref={indicatorContainerRef}>
-				<div className='flex'>
+			<div className='bg-[#f39d11] py-1' ref={indicatorContainerRef}>
+				<div className='relative flex mx-14'>
 					{pageItems.map(item => (
 						<button
 							onClick={() => handleMovePage(item.id)}
 							key={item.id}
-							className='z-10 w-full'
+							className='z-10 outline-none text-white w-full'
 						>
 							{item.name}
 						</button>
 					))}
-				</div>
 
-				<div
-					style={{
-						width: indicatorContainerRef.current?.getBoundingClientRect().width,
-						height:
-							indicatorContainerRef.current?.getBoundingClientRect().height,
-						top: indicatorContainerRef.current?.getBoundingClientRect().top,
-					}}
-					className={`flex items-center absolute`}
-				>
 					<div
 						style={{ transform: `translate(${position}%)` }}
-						className='w-1/2 h-full bg-orange-200/30 rounded-full z-10'
+						className={`absolute left-0 w-1/2 h-full bg-orange-200/30 z-10  rounded-full`}
 					></div>
 				</div>
 			</div>
 
 			<div
 				onScroll={handleScroll}
+				ref={pageScrollerRef}
 				className='relative  flex flex-1 overflow-x-scroll snap-mandatory snap-x'
 			>
 				{pageItems.map(item => (
@@ -76,7 +72,7 @@ function PageLayout({
 	pageId: string;
 }) {
 	return (
-		<div id={pageId} className='min-w-full snap-start '>
+		<div id={pageId} className='min-w-full snap-start flex'>
 			{pageItem}
 		</div>
 	);

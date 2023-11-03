@@ -2,6 +2,7 @@ import React, { ReactNode } from 'react';
 import PagesContainer from './pages-container';
 import { Link, useLocation, useRoute } from 'wouter';
 import AddIcon from '../assets/plus.svg?react';
+import Overview from './overview';
 
 type Props = {};
 
@@ -16,7 +17,7 @@ const pageItems: PageItem[] = [
 	{
 		id: 'pageItem1',
 		index: 0,
-		content: <div>Overview</div>,
+		content: <Overview />,
 		name: 'Overview',
 	},
 	{
