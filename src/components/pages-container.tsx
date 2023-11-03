@@ -25,7 +25,7 @@ function PagesContainer({ pageItems }: Props) {
 
 	return (
 		<>
-			<div ref={indicatorContainerRef} className='border-4 border-red-500'>
+			<div ref={indicatorContainerRef}>
 				<div className='flex'>
 					{pageItems.map(item => (
 						<button
@@ -56,7 +56,7 @@ function PagesContainer({ pageItems }: Props) {
 
 			<div
 				onScroll={handleScroll}
-				className='border-4 relative border-blue-500 flex flex-1 overflow-x-scroll snap-mandatory snap-x'
+				className='relative  flex flex-1 overflow-x-scroll snap-mandatory snap-x'
 			>
 				{pageItems.map(item => (
 					<PageLayout pageId={item.id} key={item.id} pageItem={item.content} />
