@@ -37,14 +37,20 @@ function Main({}: Props) {
 	return (
 		<>
 			<PagesContainer pageItems={pageItems} />
-			<button
-				onClick={navigate}
-				className='w-16 h-16 shadow-lg bg-orange-300 rounded-full bg-brand fixed p-3 right-5 bottom-5'
-			>
-				<AddIcon />
-			</button>
+			<AddExpenseButton onClick={navigate} />
 		</>
 	);
 }
 
 export default Main;
+
+function AddExpenseButton({ onClick }: { onClick: () => void }) {
+	return (
+		<button
+			onClick={onClick}
+			className='w-16 h-16 shadow-lg bg-orange-300 rounded-full bg-brand fixed p-3 right-5 bottom-5'
+		>
+			<AddIcon />
+		</button>
+	);
+}
