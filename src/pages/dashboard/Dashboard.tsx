@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Sidebar from '../../components/sidebar';
+import Header from '../../components/app-header';
 
 type Props = {};
 
@@ -20,10 +21,7 @@ function Dashboard({}: Props) {
 					toggleSidebar();
 				}}
 			>
-				<div>
-					<h2>navbar</h2>
-					<button onClick={toggleSidebar}>toggle</button>
-				</div>
+				<Header onOpen={toggleSidebar} />
 				<div>pages</div>
 				<div>add-btn</div>
 			</main>
