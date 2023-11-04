@@ -1,10 +1,11 @@
 import React, { ReactNode } from 'react';
 import PagesContainer from './pages-container';
-import { Link, useLocation, useRoute } from 'wouter';
 import AddIcon from '../assets/plus.svg?react';
 import Overview from './overview';
 
-type Props = {};
+type Props = {
+	onNavigate: (path: string) => void;
+};
 
 export type PageItem = {
 	index: number;
@@ -13,32 +14,25 @@ export type PageItem = {
 	id: string;
 };
 
-const pageItems: PageItem[] = [
-	{
-		id: 'pageItem1',
-		index: 0,
-		content: <Overview />,
-		name: 'Overview',
-	},
-	{
-		id: 'pageItem2',
-		index: 1,
-		content: <div>History</div>,
-		name: 'History',
-	},
-];
-
-function Main({}: Props) {
-	const [location, setLocation] = useLocation();
-
-	const navigate = () => {
-		setLocation('/add');
-	};
-
+function Main({ onNavigate }: Props) {
+	const pageItems: PageItem[] = [
+		{
+			id: 'pageItem1',
+			index: 0,
+			content: <Overview onNavigate={onNavigate} />,
+			name: 'Overview',
+		},
+		{
+			id: 'pageItem2',
+			index: 1,
+			content: <div>History</div>,
+			name: 'History',
+		},
+	];
 	return (
 		<>
 			<PagesContainer pageItems={pageItems} />
-			<AddExpenseButton onClick={navigate} />
+			<AddExpenseButton onClick={() => onNavigate('/add')} />
 		</>
 	);
 }

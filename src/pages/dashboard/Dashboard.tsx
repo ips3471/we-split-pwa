@@ -1,14 +1,33 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Sidebar from '../../components/sidebar';
 import Header from '../../components/app-header';
 import Main from '../../components/app-main';
+import { useLocation } from 'wouter';
+import { checkSlashPrefixedString } from '../../utils/checkSlashPrefixedString';
 
-type Props = {};
+type Props = {
+	dataId: string;
+};
 
-function Dashboard({}: Props) {
+function Dashboard({ dataId }: Props) {
+	console.log(dataId); // '1'
+
 	const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+	const [location, setLocation] = useLocation();
 
 	const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+
+	useEffect(() => {
+		setLocation('/' + dataId);
+	});
+
+	const navigate = (path: string) => {
+		if (path === location) return;
+		checkSlashPrefixedString(path);
+		const url = location + path;
+
+		setLocation(url);
+	};
 
 	return (
 		<>
@@ -22,7 +41,7 @@ function Dashboard({}: Props) {
 				}}
 			>
 				<Header onOpen={toggleSidebar} />
-				<Main />
+				<Main onNavigate={navigate} />
 			</div>
 		</>
 	);
