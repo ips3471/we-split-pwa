@@ -4,6 +4,7 @@ import Members from './overview-members';
 import membersData from '../test/__mocks__/membersData.json';
 import Categories from './overview-categories';
 import { CategoryItem } from '../type';
+import SettleupButton from './overview-settleup-button';
 
 type Props = {};
 
@@ -26,7 +27,7 @@ function Overview({}: Props) {
 			<PhotoViewer />
 			<Members members={members} />
 			<Categories items={categoriesStub} />
-			<div>settle up</div>
+			<SettleupButton />
 		</div>
 	);
 }
