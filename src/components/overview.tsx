@@ -2,12 +2,21 @@ import React from 'react';
 import PhotoViewer from './main-photo-viewer';
 import Members from './overview-members';
 import membersData from '../test/__mocks__/membersData.json';
+import Categories from './overview-categories';
+import { CategoryItem } from '../type';
 
 type Props = {};
 
 function Overview({}: Props) {
 	const pageId = '1';
 	const membersProps = membersData.find(data => data.id === pageId);
+	const categoriesStub: CategoryItem[] = [
+		{
+			id: '1',
+			name: 'stub1',
+			total: 10,
+		},
+	];
 	const members = membersProps?.members;
 
 	if (!members) return null;
@@ -16,7 +25,7 @@ function Overview({}: Props) {
 		<div className='flex-1'>
 			<PhotoViewer />
 			<Members members={members} />
-			<div>categories</div>
+			<Categories items={categoriesStub} />
 			<div>settle up</div>
 		</div>
 	);
