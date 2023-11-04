@@ -68,7 +68,8 @@ const config: Config = {
 	// ],
 	// A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
 	moduleNameMapper: {
-		'\\.(gif|ttf|eot|svg|png)$': '<rootDir>/test/__ mocks __/fileMock.js',
+		'\\.(gif|ttf|eot|svg|svg\\?react|png)$':
+			'<rootDir>/src/test/__mocks__/fileMock.js',
 		'\\.(css|less|sass|scss)$': 'identity-obj-proxy',
 	},
 	// An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
