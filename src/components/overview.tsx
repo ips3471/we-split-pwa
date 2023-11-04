@@ -42,7 +42,9 @@ function Overview({}: Props) {
 			<LinkedSection onNavigate={navigate} to='/categories'>
 				<Categories items={categoriesStub} />
 			</LinkedSection>
-			<SettleupButton />
+			<LinkedSection onNavigate={navigate} to='/settleup'>
+				<SettleupButton />
+			</LinkedSection>
 		</div>
 	);
 }
