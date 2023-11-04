@@ -5,21 +5,13 @@ import membersData from '../test/__mocks__/membersData.json';
 import Categories from './overview-categories';
 import { CategoryItem } from '../type';
 import SettleupButton from './overview-settleup-button';
-import { useLocation } from 'wouter';
 import LinkedSection from './linked-section';
-import { checkSlashPrefixedString } from '../utils/checkSlashPrefixedString';
 
-type Props = {};
+type Props = {
+	onNavigate: (path: string) => void;
+};
 
-function Overview({}: Props) {
-	const [location, setLocation] = useLocation();
-	const navigate = (path: string) => {
-		checkSlashPrefixedString(path);
-		if (location === path) return;
-
-		setLocation(path);
-	};
-
+function Overview({ onNavigate }: Props) {
 	const pageId = '1';
 	const membersProps = membersData.find(data => data.id === pageId);
 	const categoriesStub: CategoryItem[] = [
@@ -36,13 +28,13 @@ function Overview({}: Props) {
 	return (
 		<div className='flex-1'>
 			<PhotoViewer />
-			<LinkedSection onNavigate={navigate} to='/members'>
+			<LinkedSection onClick={() => onNavigate('/members')}>
 				<Members members={members} />
 			</LinkedSection>
-			<LinkedSection onNavigate={navigate} to='/categories'>
+			<LinkedSection onClick={() => onNavigate('/categories')}>
 				<Categories items={categoriesStub} />
 			</LinkedSection>
-			<LinkedSection onNavigate={navigate} to='/settleup'>
+			<LinkedSection onClick={() => onNavigate('/settleup')}>
 				<SettleupButton />
 			</LinkedSection>
 		</div>
