@@ -1,17 +1,14 @@
 import React from 'react';
 import ZoomIcon from '../assets/more.svg?react';
 import { MemberData } from '../type';
-import useLocation from 'wouter/use-location';
 
 type Props = {
 	members: MemberData[];
 };
 
 function Members({ members }: Props) {
-	const [location, setLocation] = useLocation();
-	const navigate = () => setLocation('/members');
 	return (
-		<div onClick={navigate} className='m-4 p-2 relative bg-white rounded-lg'>
+		<div className='m-4 p-2 relative bg-white rounded-lg'>
 			<span className='w-4 h-4 opacity-70 absolute top-2 right-2'>
 				<ZoomIcon />
 			</span>
