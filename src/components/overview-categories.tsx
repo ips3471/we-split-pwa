@@ -1,6 +1,7 @@
 import React from 'react';
 import ZoomIcon from '../assets/more.svg?react';
 import { CategoryItem } from '../type';
+import { printCurrencyText } from '../utils/print-currency-text';
 
 type Props = {
 	items: CategoryItem[];
@@ -22,13 +23,7 @@ function Categories({ items }: Props) {
 								className='text-center bg-red-100 flex flex-col items-center justify-center p-4 rounded-xl '
 							>
 								<dt className='text-sm whitespace-nowrap'>{category.name}</dt>
-								<dd>
-									{category.total.toLocaleString('ko-kr', {
-										notation: 'standard',
-										style: 'currency',
-										currency: 'krw',
-									})}
-								</dd>
+								<dd>{printCurrencyText(category.total)}</dd>
 							</dl>
 						))
 					) : (
