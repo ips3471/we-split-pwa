@@ -1,6 +1,8 @@
 import React from 'react';
 import SettleUpTable from '../../../components/settle-up-table';
 import { SettleUpExpenseProps } from '../../../type';
+import SuggestedPayments from '../../../components/settle-up-suggested-payments';
+import { printBalanceByMember } from '../../../utils/print-balance-by-member';
 
 type Props = {};
 
@@ -33,13 +35,25 @@ function Summary({}: Props) {
 		},
 	];
 
+	const accountingMember = groupProps.members.reduce((major, member) => {
+		return printBalanceByMember(itemProps, member) >
+			printBalanceByMember(itemProps, major)
+			? member
+			: major;
+	}, '');
+
 	return (
 		<div className='overflow-auto'>
-			<h1>
+			<h1 className='font-bold text-2xl mb-4'>
 				{groupProps.name} - {groupProps.date}
 			</h1>
-			<main>
+			<main className='space-y-5'>
 				<SettleUpTable items={itemProps} members={groupProps.members} />
+				<SuggestedPayments
+					accounting={accountingMember}
+					expenses={itemProps}
+					members={groupProps.members}
+				/>
 			</main>
 		</div>
 	);
