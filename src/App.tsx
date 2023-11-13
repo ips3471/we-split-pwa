@@ -8,6 +8,7 @@ import expensesData from './test/__mocks__/itemsData.json';
 import MembersDetail from './pages/dashboard/overview/members-detail';
 import { Redirect } from 'wouter';
 import CategoriesDetail from './pages/dashboard/overview/categories-detail';
+import Summary from './pages/dashboard/overview/settle-up';
 
 export type CategorizedItems = Record<Category, ExpenseData[]>;
 type Props = {
@@ -20,8 +21,6 @@ function App({ initId }: Props) {
 	const [categorizedItems, setCategorizedItems] = useState<CategorizedItems>();
 
 	useEffect(() => {
-		console.log('init', initId);
-
 		initId && setPageId(initId);
 	}, []);
 
@@ -67,6 +66,7 @@ function App({ initId }: Props) {
 				path='/:id/categories'
 				component={() => <CategoriesDetail items={categorizedItems} />}
 			/>
+			<Route path='/:id/settleup' component={() => <Summary />} />
 		</Switch>
 	);
 }

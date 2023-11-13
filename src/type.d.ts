@@ -34,3 +34,8 @@ export type Category =
 	| 'restaurants'
 	| 'transport'
 	| 'none';
+
+export type SettleUpExpenseProps = Pick<
+	ExpenseData,
+	'amount' | 'id' | 'name' | 'by' | 'for'
+>[];
