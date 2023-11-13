@@ -52,7 +52,7 @@ function PagesContainer({ pageItems }: Props) {
 			<div
 				onScroll={handleScroll}
 				ref={pageScrollerRef}
-				className='relative  flex flex-1 overflow-x-scroll snap-mandatory snap-x'
+				className='relative flex flex-1 h-full overflow-x-scroll snap-mandatory snap-x'
 			>
 				{pageItems.map(item => (
 					<PageLayout pageId={item.id} key={item.id} pageItem={item.content} />

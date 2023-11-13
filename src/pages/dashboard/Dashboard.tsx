@@ -32,7 +32,7 @@ function Dashboard({}: Props) {
 					isSidebarOpen && toggleSidebar();
 				}}
 			>
-				<div className={`${isSidebarOpen ? 'pointer-events-none' : ''}`}>
+				<div className={`h-full ${isSidebarOpen ? 'pointer-events-none' : ''}`}>
 					<Header onOpen={toggleSidebar} />
 					<Main onNavigate={navigate} />
 				</div>
