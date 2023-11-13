@@ -12,18 +12,21 @@ test('demo', () => {
 });
 
 describe('App page', () => {
-	it('renders dashboard page when pageId is provided', () => {
-		const pageId = 'testId';
+	let initId;
 
-		render(<App pageId={pageId} />);
+	it('renders Welcome Component when initId is not provided', () => {
+		initId = undefined;
 
-		expect(screen.getByText('Dashboard Component')).toBeInTheDocument();
+		render(<App initId={initId} />);
+
+		expect(screen.getByText('Welcome Component')).toBeInTheDocument();
 	});
 
-	it('renders welcome page when pageId is not provided', () => {
-		const pageId = undefined;
+	it('renders Dashboard page when initId is provided', () => {
+		initId = 'testId';
 
-		render(<App pageId={pageId} />);
-		expect(screen.getByText('Welcome Component')).toBeInTheDocument();
+		render(<App initId={initId} />);
+
+		expect(screen.getByText('Dashboard Component')).toBeInTheDocument();
 	});
 });

@@ -10,19 +10,19 @@ describe('Categories component', () => {
 		categoryItems = [
 			{
 				id: '1',
-				name: 'test1',
+				name: 'accomodation',
 				total: 1,
 			},
 			{
 				id: '2',
-				name: 'test2',
+				name: 'entertainment',
 				total: 2,
 			},
 		];
 	});
 	it('renders members props', () => {
 		render(<Categories items={categoryItems} />);
-		expect(screen.getByText('test1')).toBeInTheDocument();
-		expect(screen.getByText('test2')).toBeInTheDocument();
+		expect(screen.getByText('accomodation')).toBeInTheDocument();
+		expect(screen.getByText('entertainment')).toBeInTheDocument();
 	});
 });

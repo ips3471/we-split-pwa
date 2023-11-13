@@ -2,8 +2,9 @@ import React from 'react';
 import PhotoViewer from './main-photo-viewer';
 import Members from './overview-members';
 import membersData from '../test/__mocks__/membersData.json';
+import expensesData from '../test/__mocks__/itemsData.json';
 import Categories from './overview-categories';
-import { CategoryItem } from '../type';
+import { Category, CategoryItem } from '../type';
 import SettleupButton from './overview-settleup-button';
 import LinkedSection from './linked-section';
 
@@ -14,13 +15,14 @@ type Props = {
 function Overview({ onNavigate }: Props) {
 	const pageId = '1';
 	const membersProps = membersData.find(data => data.id === pageId);
-	const categoriesStub: CategoryItem[] = [
-		{
-			id: '1',
-			name: 'stub1',
-			total: 10,
-		},
-	];
+	const expensesProps = expensesData.find(data => data.id === pageId);
+
+	const categoryItems: CategoryItem[] =
+		expensesProps?.items.map(item => ({
+			id: item.id,
+			name: item.name as Category,
+			total: item.amount,
+		})) || [];
 	const members = membersProps?.members;
 
 	if (!members) return null;
@@ -32,7 +34,7 @@ function Overview({ onNavigate }: Props) {
 				<Members members={members} />
 			</LinkedSection>
 			<LinkedSection onClick={() => onNavigate('/categories')}>
-				<Categories items={categoriesStub} />
+				<Categories items={categoryItems} />
 			</LinkedSection>
 			<LinkedSection onClick={() => onNavigate('/settleup')}>
 				<SettleupButton />

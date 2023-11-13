@@ -5,21 +5,13 @@ import Main from '../../components/app-main';
 import { useLocation } from 'wouter';
 import { checkSlashPrefixedString } from '../../utils/checkSlashPrefixedString';
 
-type Props = {
-	dataId: string;
-};
+type Props = {};
 
-function Dashboard({ dataId }: Props) {
-	console.log(dataId); // '1'
-
+function Dashboard({}: Props) {
 	const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 	const [location, setLocation] = useLocation();
 
 	const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
-
-	useEffect(() => {
-		setLocation('/' + dataId);
-	});
 
 	const navigate = (path: string) => {
 		if (path === location) return;

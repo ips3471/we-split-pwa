@@ -10,6 +10,27 @@ export type MemberData = {
 
 export type CategoryItem = {
 	id: string;
-	name: string;
+	name: Category;
 	total: number;
 };
+
+export type ExpenseData = {
+	amount: number;
+	by: string;
+	category: Category;
+	date: {
+		day: string;
+		time: string;
+	};
+	for: string[];
+	name: string;
+	id: string;
+};
+
+export type Category =
+	| 'accomodation'
+	| 'entertainment'
+	| 'groceries'
+	| 'restaurants'
+	| 'transport'
+	| 'none';
