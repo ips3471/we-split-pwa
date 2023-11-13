@@ -7,7 +7,7 @@ type Props = {
 
 function PageHeader({ handleOptionButton }: Props) {
 	return (
-		<header className='flex justify-between h-16 items-centers w-screen  '>
+		<header className='flex bg-brand-deep justify-between h-16 items-centers w-screen  '>
 			<button
 				data-testid='backBtn'
 				className='w-14 p-4 h-full'
