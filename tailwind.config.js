@@ -10,7 +10,7 @@ export default {
 			},
 			backgroundColor: {
 				light: '#f8f8f8',
-				white: 'ffffff',
+				white: '#ffffff',
 			},
 		},
 	},
