@@ -3,6 +3,7 @@ import SettleUpTable from '../../../components/settle-up-table';
 import { SettleUpExpenseProps } from '../../../type';
 import SuggestedPayments from '../../../components/settle-up-suggested-payments';
 import { printBalanceByMember } from '../../../utils/print-balance-by-member';
+import PageHeader from '../../../components/page-header';
 
 type Props = {};
 
@@ -44,6 +45,7 @@ function Summary({}: Props) {
 
 	return (
 		<div className='overflow-auto'>
+			<PageHeader />
 			<h1 className='font-bold text-2xl mb-4'>
 				{groupProps.name} - {groupProps.date}
 			</h1>
