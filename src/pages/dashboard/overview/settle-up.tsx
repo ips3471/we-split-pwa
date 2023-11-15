@@ -44,12 +44,12 @@ function Summary({}: Props) {
 	}, '');
 
 	return (
-		<div className='overflow-auto'>
+		<div>
 			<PageHeader />
 			<h1 className='font-bold text-2xl mb-4'>
 				{groupProps.name} - {groupProps.date}
 			</h1>
-			<main className='space-y-5'>
+			<main className='space-y-5 overflow-auto'>
 				<SettleUpTable items={itemProps} members={groupProps.members} />
 				<SuggestedPayments
 					accounting={accountingMember}
