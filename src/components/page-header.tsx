@@ -15,7 +15,7 @@ function PageHeader({ handleOptionButton }: Props) {
 					history.back();
 				}}
 			>
-				<ArrowIcon />
+				<ArrowIcon stroke='#ffffff' />
 			</button>
 			{handleOptionButton && (
 				<button data-testid='optionsBtn' onClick={handleOptionButton}>
