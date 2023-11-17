@@ -34,7 +34,7 @@ function Sidebar({ isOpen }: Props) {
 			</section>
 
 			<section className='bg-white p-4 flex-shrink basis-2/3 relative'>
-				<Link href={'/'}>
+				<Link href={'./create'}>
 					<div className='absolute w-14 h-14 right-4 top-0 -translate-y-1/2 p-4 rounded-full bg-white shadow-lg'>
 						<PlusIcon fill='#E07C00' />
 					</div>

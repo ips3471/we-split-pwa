@@ -9,6 +9,7 @@ import MembersDetail from './pages/dashboard/overview/members-detail';
 import { Redirect } from 'wouter';
 import CategoriesDetail from './pages/dashboard/overview/categories-detail';
 import Summary from './pages/dashboard/overview/settle-up';
+import CreateGroupSectionsContainer from './pages/create/create-group-sections-container';
 
 export type CategorizedItems = Record<Category, ExpenseData[]>;
 type Props = {
@@ -50,6 +51,10 @@ function App({ initId }: Props) {
 
 	return (
 		<Switch>
+			<Route
+				path='/create'
+				component={() => <CreateGroupSectionsContainer />}
+			/>
 			<Route
 				path='/'
 				component={() =>
