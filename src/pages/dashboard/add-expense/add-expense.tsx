@@ -4,10 +4,12 @@ import NumPad from '../../../components/num-pad';
 import PageHeader from '../../../components/page-header';
 import { Category } from '../../../type';
 import LabelItem from '../../../components/add-expense-label-item';
+import SelectPad from '../../../components/add-expense-select-pad';
 
 type Props = {};
 export type AddExpenseFormData = {
-	date: Date;
+	date: string;
+	time: string;
 	by: string;
 	for: string[];
 	category: Category;
@@ -23,7 +25,8 @@ function AddExpense({}: Props) {
 			amount: 0,
 			by: '대승',
 			category: '숙박/서비스',
-			date: new Date(),
+			date: DatePresenter().formattedDate,
+			time: DatePresenter().formattedTime,
 			for: ['대승', '명섭'],
 			text: '',
 		};
@@ -31,9 +34,30 @@ function AddExpense({}: Props) {
 	}, []);
 	const dateInputRef = useRef<HTMLInputElement>(null);
 	const timeInputRef = useRef<HTMLInputElement>(null);
-	const datePresenter = DatePresenter(form?.date);
+
+	const datePresenter = DatePresenter(new Date(form?.date || ''));
 	const dateString = `${datePresenter.year}/${datePresenter.month}/${datePresenter.day}/(${datePresenter.week})`;
-	function handleChange() {}
+	const timeString = `${
+		Number(form?.time.split(':')[0]) >= 12 ? '오후' : '오전'
+	} ${
+		Number(form?.time.split(':')[0]) > 12
+			? Number(form?.time.split(':')[0]) - 12
+			: form?.time.split(':')[0]
+	}시 ${form?.time.split(':')[1]}분`;
+
+	console.log(timeString);
+
+	function handleChange<K extends keyof AddExpenseFormData>(
+		label: K,
+		value: AddExpenseFormData[K],
+	) {
+		if (value == '' || value == null) return;
+
+		setForm(prev => {
+			const updated = prev && { ...prev, [label]: value };
+			return updated;
+		});
+	}
 	function handleSubmit() {
 		console.log('submitted');
 	}
@@ -41,7 +65,14 @@ function AddExpense({}: Props) {
 		setFocus(id);
 	}
 
-	console.log(datePresenter.minutes);
+	useEffect(() => {
+		if (focus === 'date') {
+			return dateInputRef.current?.click();
+		}
+		if (focus === 'time') {
+			return timeInputRef.current?.click();
+		}
+	}, [focus]);
 
 	return (
 		<div className='flex flex-col h-full'>
@@ -49,12 +80,40 @@ function AddExpense({}: Props) {
 
 			<form onSubmit={handleSubmit} className='flex-1 bg-slate-200 space-y-6'>
 				<div className='text-left p-4'>
-					<LabelItem
-						onClick={() => handleLabelClick('date')}
-						labelName='날짜'
-						value={`${dateString} ${datePresenter.formattedTime}`}
-						isFocused={focus === 'date'}
-					/>
+					<>
+						<LabelItem
+							onClick={() => handleLabelClick('date')}
+							labelName='날짜'
+							value={`${dateString}`}
+							isFocused={focus === 'date'}
+						/>
+						<input
+							ref={dateInputRef}
+							onChange={e => {
+								handleChange('date', e.currentTarget.value);
+							}}
+							onBlur={() => timeInputRef.current?.click()}
+							type='date'
+							className='w-0 absolute'
+						/>
+					</>
+					<>
+						<LabelItem
+							onClick={() => handleLabelClick('time')}
+							labelName='시간'
+							value={`${timeString}`}
+							isFocused={focus === 'time'}
+						/>
+						<input
+							ref={timeInputRef}
+							onChange={e => {
+								handleChange('time', e.currentTarget.value);
+							}}
+							type='time'
+							className='w-0 absolute'
+						/>
+					</>
+
 					<LabelItem
 						onClick={() => handleLabelClick('by')}
 						labelName='결제'
@@ -88,88 +147,7 @@ function AddExpense({}: Props) {
 				</div>
 			</form>
 
-			<section className='bg-black text-white h-2/5'>
-				{
-					[
-						{
-							id: 'date',
-							item: null,
-						},
-						{
-							id: 'by',
-							item: (
-								<div className={`grid m-[1px] gap-[1px] grid-cols-4`}>
-									{
-										<section className={` ${true ? 'bg-brand' : ''} h-16`}>
-											<button
-												className='p-1 text-xs w-full h-full'
-												name='by'
-												onClick={() => {}}
-											>
-												멤버이름
-											</button>
-										</section>
-									}
-								</div>
-							),
-						},
-						{
-							id: 'for',
-							item: (
-								<div className={`grid m-[1px] gap-[1px] grid-cols-4`}>
-									{['멤버1', '멤버2'].map(member => {
-										return (
-											<section className={` ${true ? 'bg-brand' : ''} h-16`}>
-												<button
-													className='p-1 text-xs w-full h-full'
-													name='for'
-													onClick={() => {}}
-												>
-													{member}
-												</button>
-											</section>
-										);
-									})}
-								</div>
-							),
-						},
-						{
-							id: 'category',
-							item: (
-								<div className={`grid m-[1px] gap-[1px] grid-cols-4`}>
-									{['카테고리1', '카테고리2'].map(() => {
-										return (
-											<section className={` ${true ? 'bg-brand' : ''} h-16`}>
-												<button
-													className='p-1 text-xs w-full h-full'
-													name='category'
-													onClick={() => {}}
-												>
-													'카테고리이름'
-												</button>
-											</section>
-										);
-									})}
-								</div>
-							),
-						},
-						{
-							id: 'amount',
-							item: (
-								<NumPad
-									currentValue={0}
-									onChange={() => {}}
-									onSubmit={() => {}}
-								/>
-							),
-						},
-						{
-							id: 'name',
-							item: null,
-						},
-					][1].item
-				}
-			</section>
+			<SelectPad focus={focus} />
 		</div>
 	);
 }
