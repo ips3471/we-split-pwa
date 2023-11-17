@@ -10,6 +10,7 @@ import { Redirect } from 'wouter';
 import CategoriesDetail from './pages/dashboard/overview/categories-detail';
 import Summary from './pages/dashboard/overview/settle-up';
 import CreateGroupSectionsContainer from './pages/create/create-group-sections-container';
+import AddExpense from './pages/dashboard/add-expense/add-expense';
 
 export type CategorizedItems = Record<Category, ExpenseData[]>;
 type Props = {
@@ -30,12 +31,12 @@ function App({ initId }: Props) {
 		membersResponse && setMembers(membersResponse.members);
 
 		const categorized: CategorizedItems = {
-			accomodation: [],
-			entertainment: [],
-			groceries: [],
-			restaurants: [],
-			transport: [],
-			none: [],
+			'숙박/서비스': [],
+			'관람/티켓': [],
+			'마트/편의점': [],
+			'식당/카페': [],
+			'카풀/주차': [],
+			기타: [],
 		};
 
 		const expensesResponse = expensesData.find(data => data.id === pageId);
@@ -72,6 +73,7 @@ function App({ initId }: Props) {
 				component={() => <CategoriesDetail items={categorizedItems} />}
 			/>
 			<Route path='/:id/settleup' component={() => <Summary />} />
+			<Route path='/:id/add' component={() => <AddExpense />} />
 		</Switch>
 	);
 }

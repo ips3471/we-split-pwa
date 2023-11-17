@@ -10,19 +10,19 @@ describe('Categories component', () => {
 		categoryItems = [
 			{
 				id: '1',
-				name: 'accomodation',
+				name: '숙박/서비스',
 				total: 1,
 			},
 			{
 				id: '2',
-				name: 'entertainment',
+				name: '관람/티켓',
 				total: 2,
 			},
 		];
 	});
 	it('renders members props', () => {
 		render(<Categories items={categoryItems} />);
-		expect(screen.getByText('accomodation')).toBeInTheDocument();
-		expect(screen.getByText('entertainment')).toBeInTheDocument();
+		expect(screen.getByText('숙박/서비스')).toBeInTheDocument();
+		expect(screen.getByText('관람/티켓')).toBeInTheDocument();
 	});
 });

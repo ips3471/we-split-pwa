@@ -28,12 +28,12 @@ export type ExpenseData = {
 };
 
 export type Category =
-	| 'accomodation'
-	| 'entertainment'
-	| 'groceries'
-	| 'restaurants'
-	| 'transport'
-	| 'none';
+	| '숙박/서비스'
+	| '관람/티켓'
+	| '마트/편의점'
+	| '식당/카페'
+	| '카풀/주차'
+	| '기타';
 
 export type SettleUpExpenseProps = Pick<
 	ExpenseData,

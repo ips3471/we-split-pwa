@@ -16,15 +16,15 @@ type Props = {
 function CategoryFilteredItems({ items, categoryName }: Props) {
 	function printIcon(category: keyof CategorizedItems) {
 		switch (category) {
-			case 'accomodation':
+			case '숙박/서비스':
 				return <AccomodationIcon />;
-			case 'entertainment':
+			case '관람/티켓':
 				return <EntertainmentIcon />;
-			case 'groceries':
+			case '마트/편의점':
 				return <GroceriesIcon />;
-			case 'restaurants':
+			case '식당/카페':
 				return <RestaurantsIcon />;
-			case 'transport':
+			case '카풀/주차':
 				return <TransportIcon />;
 			default:
 				return <span>{categoryName.slice(0, 5)}</span>;
