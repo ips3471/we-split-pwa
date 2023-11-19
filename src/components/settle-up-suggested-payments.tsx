@@ -21,7 +21,10 @@ function SuggestedPayments({ members, expenses, accounting }: Props) {
 				{members.map(
 					member =>
 						member !== accounting && (
-							<tr className='border-b last:border-none border-gray-300'>
+							<tr
+								key={member}
+								className='border-b last:border-none border-gray-300'
+							>
 								<th>{member}</th>
 								<td>{isPayback(expenses, member) ? '<=' : '=>'}</td>
 								<td>{accounting}</td>
