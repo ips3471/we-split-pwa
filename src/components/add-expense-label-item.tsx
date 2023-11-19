@@ -10,7 +10,6 @@ function LabelItem({ labelName, value, isFocused, onClick }: Props) {
 		<div onClick={onClick} className='flex'>
 			<span className='w-12'>{labelName}</span>
 			<span
-				onClick={() => {}}
 				className={`flex-1 text-left  border-b ${
 					isFocused ? 'border-brand' : 'border-black'
 				}`}
