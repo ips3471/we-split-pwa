@@ -4,12 +4,23 @@ import Header from '../../components/app-header';
 import Main from '../../components/app-main';
 import { useLocation } from 'wouter';
 import { checkSlashPrefixedString } from '../../utils/checkSlashPrefixedString';
+import groupsData from '../../test/__mocks__/groupsData.json';
+import { GroupData } from '../../type';
 
 type Props = {};
 
 function Dashboard({}: Props) {
 	const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 	const [location, setLocation] = useLocation();
+	const [group, setGroup] = useState<GroupData>();
+
+	useEffect(() => {
+		const pageId = location.split('/')[1];
+		const found = groupsData.find(group => group.id === pageId) as
+			| GroupData
+			| undefined;
+		found && setGroup(found);
+	}, []);
 
 	const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
@@ -32,10 +43,14 @@ function Dashboard({}: Props) {
 					isSidebarOpen && toggleSidebar();
 				}}
 			>
-				<div className={`h-full ${isSidebarOpen ? 'pointer-events-none' : ''}`}>
-					<Header onOpen={toggleSidebar} />
-					<Main onNavigate={navigate} />
-				</div>
+				{group && (
+					<div
+						className={`h-full ${isSidebarOpen ? 'pointer-events-none' : ''}`}
+					>
+						<Header onOpen={toggleSidebar} groupTitle={group.name} />
+						<Main onNavigate={navigate} />
+					</div>
+				)}
 			</div>
 		</>
 	);
