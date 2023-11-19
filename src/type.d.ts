@@ -1,3 +1,10 @@
+export type GroupData = {
+	id: string;
+	name: string;
+	data: string;
+	members: string[];
+};
+
 export type MembersData = {
 	id: string;
 	members: MemberData[];
