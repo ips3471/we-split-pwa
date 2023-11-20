@@ -6,11 +6,13 @@ import { useLocation } from 'wouter';
 import { checkSlashPrefixedString } from '../../utils/checkSlashPrefixedString';
 import groupsData from '../../test/__mocks__/groupsData.json';
 import { GroupData } from '../../type';
+import HeaderOptions from '../../components/app-header-options-container';
 
 type Props = {};
 
 function Dashboard({}: Props) {
 	const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+	const [isOptionsOpen, setIsOptionsOpen] = useState(false);
 	const [location, setLocation] = useLocation();
 	const [group, setGroup] = useState<GroupData>();
 
@@ -23,6 +25,7 @@ function Dashboard({}: Props) {
 	}, []);
 
 	const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+	const toggleOptions = () => setIsOptionsOpen(!isOptionsOpen);
 
 	const navigate = (path: string) => {
 		if (path === location) return;
@@ -41,17 +44,29 @@ function Dashboard({}: Props) {
 				}`}
 				onClick={() => {
 					isSidebarOpen && toggleSidebar();
+					isOptionsOpen && toggleOptions();
 				}}
 			>
 				{group && (
 					<div
-						className={`h-full ${isSidebarOpen ? 'pointer-events-none' : ''}`}
+						className={`h-full ${
+							isSidebarOpen || isOptionsOpen ? 'pointer-events-none' : ''
+						}`}
 					>
-						<Header onOpen={toggleSidebar} groupTitle={group.name} />
+						<Header
+							onOptionsOpen={toggleOptions}
+							onSidebarOpen={toggleSidebar}
+							groupTitle={group.name}
+						/>
 						<Main onNavigate={navigate} />
 					</div>
 				)}
 			</div>
+			{isOptionsOpen && (
+				<div className='absolute top-2 right-2 z-20 rounded-lg text-right bg-light p-4 shadow-md'>
+					<HeaderOptions />
+				</div>
+			)}
 		</>
 	);
 }
