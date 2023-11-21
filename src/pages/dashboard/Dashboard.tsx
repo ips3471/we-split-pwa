@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Sidebar from '../../components/sidebar';
 import Header from '../../components/app-header';
 import Main from '../../components/app-main';
@@ -7,14 +7,20 @@ import { checkSlashPrefixedString } from '../../utils/checkSlashPrefixedString';
 import groupsData from '../../test/__mocks__/groupsData.json';
 import { GroupData } from '../../type';
 import HeaderOptions from '../../components/app-header-options-container';
+import Dialog from '../../components/app-dialog';
 
 type Props = {};
+type Dialog = {
+	title: string;
+	target: keyof GroupData;
+};
 
 function Dashboard({}: Props) {
 	const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 	const [isOptionsOpen, setIsOptionsOpen] = useState(false);
 	const [location, setLocation] = useLocation();
 	const [group, setGroup] = useState<GroupData>();
+	const [dialog, setDialog] = useState<Dialog | null>(null);
 
 	useEffect(() => {
 		const pageId = location.split('/')[1];
@@ -35,12 +41,34 @@ function Dashboard({}: Props) {
 		setLocation(url);
 	};
 
+	function handleOption(title: string, target: keyof GroupData) {
+		toggleOptions();
+		setDialog({
+			title,
+			target,
+		});
+	}
+
+	function handleLeave() {}
+
+	/* 
+	result를 받아 group state update
+	 */
+
+	function handleCancelDialog() {
+		setDialog(null);
+	}
+	function handleSubmitDialog(result: GroupData) {
+		console.log(result);
+		setDialog(null);
+	}
+
 	return (
 		<>
 			<Sidebar isOpen={isSidebarOpen} />
 			<div
-				className={`bg-blue-100 transition-all h-full duration-500 flex flex-col ${
-					isSidebarOpen ? 'brightness-90' : ''
+				className={`bg-blue-100 relative transition-all h-full duration-500 flex flex-col ${
+					isSidebarOpen || dialog ? 'opacity-70' : ''
 				}`}
 				onClick={() => {
 					isSidebarOpen && toggleSidebar();
@@ -50,7 +78,9 @@ function Dashboard({}: Props) {
 				{group && (
 					<div
 						className={`h-full ${
-							isSidebarOpen || isOptionsOpen ? 'pointer-events-none' : ''
+							isSidebarOpen || isOptionsOpen || dialog
+								? 'pointer-events-none'
+								: ''
 						}`}
 					>
 						<Header
@@ -63,9 +93,16 @@ function Dashboard({}: Props) {
 				)}
 			</div>
 			{isOptionsOpen && (
-				<div className='absolute top-2 right-2 z-20 rounded-lg text-right bg-light p-4 shadow-md'>
-					<HeaderOptions />
-				</div>
+				<HeaderOptions onExit={handleLeave} onCallDialog={handleOption} />
+			)}
+			{dialog && group && (
+				<Dialog
+					groupData={group}
+					target={dialog.target}
+					onCancel={handleCancelDialog}
+					onSubmit={handleSubmitDialog}
+					title={dialog.title}
+				/>
 			)}
 		</>
 	);
