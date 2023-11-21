@@ -43,9 +43,9 @@ function AddExpenseButton({ onClick }: { onClick: () => void }) {
 	return (
 		<button
 			onClick={onClick}
-			className='w-16 h-16 shadow-lg rounded-full bg-brand fixed p-3 right-5 bottom-5'
+			className='w-16 h-16 shadow-lg flex justify-center items-center rounded-full bg-brand fixed  right-5 bottom-5'
 		>
-			<AddIcon fill='#ffffff' />
+			<AddIcon fill='#ffffff' width='2rem' height='2rem' />
 		</button>
 	);
 }
