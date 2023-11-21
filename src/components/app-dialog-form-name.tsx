@@ -12,7 +12,7 @@ function DialogNameForm({ onChange, prevName, value }: Props) {
 			spellCheck='false'
 			autoFocus
 			placeholder={prevName}
-			className='bg-transparent w-full outline-none'
+			className='bg-transparent w-full outline-none border-b'
 			onChange={e => onChange(e.currentTarget.value)}
 			value={value}
 			required
