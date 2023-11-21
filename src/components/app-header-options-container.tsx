@@ -1,15 +1,38 @@
-import React from 'react';
+import { GroupData } from '../type';
 
-type Props = {};
+type Props = {
+	onCallDialog: (title: string, key: keyof GroupData) => void;
+	onExit: () => void;
+};
 
-function HeaderOptions({}: Props) {
+function HeaderOptions({ onCallDialog, onExit }: Props) {
 	return (
-		<ul className='flex flex-col gap-3'>
-			<li>option1</li>
-			<li>option2</li>
-			<li>option3-long</li>
-		</ul>
+		<div className='flex flex-col gap-3 absolute top-2 right-2 z-20 rounded-lg  bg-light p-4 shadow-md'>
+			<StyledOptionButton
+				name='모임이름 변경'
+				onClick={e => onCallDialog(e.currentTarget.textContent!, 'name')}
+			/>
+			<StyledOptionButton
+				name='모임멤버 변경'
+				onClick={e => onCallDialog(e.currentTarget.textContent!, 'members')}
+			/>
+			<StyledOptionButton name='모임에서 나가기' onClick={onExit} />
+		</div>
 	);
 }
 
 export default HeaderOptions;
+
+function StyledOptionButton({
+	name,
+	onClick,
+}: {
+	onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+	name: string;
+}) {
+	return (
+		<button onClick={e => onClick(e)} className='text-right'>
+			{name}
+		</button>
+	);
+}
