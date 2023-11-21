@@ -1,5 +1,5 @@
 #root {
-	@apply w-screen h-screen overflow-hidden bg-slate-200;
+	@apply w-screen h-screen overflow-hidden bg-black;
 }
 
 th,
