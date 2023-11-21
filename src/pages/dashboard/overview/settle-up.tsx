@@ -44,20 +44,22 @@ function Summary({}: Props) {
 	}, '');
 
 	return (
-		<div>
+		<>
 			<PageHeader />
-			<h1 className='font-bold text-2xl mb-4'>
-				{groupProps.name} - {groupProps.date}
-			</h1>
-			<main className='space-y-5 overflow-auto'>
-				<SettleUpTable items={itemProps} members={groupProps.members} />
-				<SuggestedPayments
-					accounting={accountingMember}
-					expenses={itemProps}
-					members={groupProps.members}
-				/>
-			</main>
-		</div>
+			<div className='bg-light h-full'>
+				<h1 className='font-bold text-2xl mb-4'>
+					{groupProps.name} - {groupProps.date}
+				</h1>
+				<main className='space-y-5 overflow-auto'>
+					<SettleUpTable items={itemProps} members={groupProps.members} />
+					<SuggestedPayments
+						accounting={accountingMember}
+						expenses={itemProps}
+						members={groupProps.members}
+					/>
+				</main>
+			</div>
+		</>
 	);
 }
 
